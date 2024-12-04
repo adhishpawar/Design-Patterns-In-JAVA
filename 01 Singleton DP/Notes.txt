@@ -1,0 +1,29 @@
+1. Constructor Should be Private 
+
+2. Object create with help of the Method
+
+3. Creation of Field varible which used to Store the obbject is Private
+
+
+
+This implementation Ok with Single Thread implementation
+
+but Using Multiple Threads......  --> if Threads Found Object value equal 
+                                    to Null simultaneously then can Access
+                                    Singleton Object by two variables. 
+
+Which make System Unsafe. so use Thread Synchronization 
+
+
+
+##Breaking Singleton DP
+
+1. Using Replection API to break SingleTon Pattern 
+solution 1-> if Object is there ==> throw Exception from inside Constructor
+         2-> Use Enum  ==> public Enum Cake 
+
+
+2. Deserialization:  
+soultion --> Implementing ReadResolve Method
+
+3.Cloning the Object  
