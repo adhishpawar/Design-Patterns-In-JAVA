@@ -22,11 +22,11 @@ public class HttpServer {
         String requestLine = in.readLine();
         System.out.println("Request: " + requestLine);
 
-        // ❌ BAD: Every request creates new DB connections
-        DBConnection db1 = new DBConnection();
-        DBConnection db2 = new DBConnection();
+        // ✅ GOOD: All calls share same DBConnection instance
+        db.DBConnection db1 = db.DBConnection.getInstance();
+        db.DBConnection db2 = db.DBConnection.getInstance();
 
-        String responseBody = "PayX test: \n"
+        String responseBody = "PayX Singleton  test: \n"
                 + "db1: " + db1 + "\n"
                 + "db2: " + db2 + "\n";
 
