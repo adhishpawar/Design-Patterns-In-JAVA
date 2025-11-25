@@ -2,22 +2,17 @@ package db;
 
 public class DBConnection {
 
-    // single instance
-    private static DBConnection instance;
-
-    private  DBConnection() {
-        System.out.println("✅ DBConnection created ONCE: " + this);
+    public DBConnection() {
+        System.out.println("🟢 DBConnection created by BeanFactory");
     }
 
-    // global access point
-    public static synchronized DBConnection getInstance() {
-        if (instance == null) {
-            instance = new DBConnection();
-        }
-        return instance;
-    }
-
-    public String getAccountBalance(String accountId) {
-        return "Balance for account " + accountId + " is 1000.00 INR";
+    public String getAccountBalance(String accId) {
+        return "Balance for account " + accId + " is 1000.00 INR";
     }
 }
+
+
+/*We removed:
+private constructor
+static getInstance()
+Because the factory now enforces singleton behavior.*/
