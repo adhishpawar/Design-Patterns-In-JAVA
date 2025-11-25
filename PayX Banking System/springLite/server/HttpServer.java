@@ -6,6 +6,8 @@ import java.io.*;
 
 import core.SingletonRegistry;
 import db.DBConnection;
+import payments.PaymentService;
+
 import java.net.*;
 import java.io.*;
 
@@ -28,18 +30,41 @@ public class HttpServer {
         String requestLine = in.readLine();
         System.out.println("Request: " + requestLine);
 
-        /// Spring-style bean creation
-        DBConnection db = BeanFactory.getBean(DBConnection.class);
+        if (requestLine.startsWith("GET /pay")) {
 
-        String responseBody = "PayX Factory test:\n"
-                + "DB instance: " + db + "\n"
-                + db.getAccountBalance("ACC999");
+            String method = extractMethod(requestLine);
 
-        out.write("HTTP/1.1 200 OK\r\n");
-        out.write("Content-Type: text/plain\r\n\r\n");
-        out.write(responseBody);
-        out.flush();
-        client.close();
+            if (method == null) {
+                out.write("HTTP/1.1 400 Bad Request\r\n");
+                out.write("Content-Type: text/plain\r\n\r\n");
+                out.write("Missing ?method=UPI/CARD/WALLET\n");
+                out.flush();
+                client.close();
+                return;
+            }
+
+            PaymentService service = BeanFactory.getBean(PaymentService.class);
+            service.pay(500.00, method);
+
+            out.write("HTTP/1.1 200 OK\r\n");
+            out.write("Content-Type: text/plain\r\n\r\n");
+            out.write("Payment of 500 INR using " + method + " executed successfully");
+            out.flush();
+            client.close();
+            return;
+        }
     }
+
+    private static String extractMethod(String requestLine) {
+        int start = requestLine.indexOf("method=");
+        if (start == -1) return null;
+
+        String method = requestLine.substring(start + 7);
+        int end = method.indexOf(' ');
+        if (end != -1) method = method.substring(0, end);
+
+        return method.toUpperCase();
+    }
+
 }
 
