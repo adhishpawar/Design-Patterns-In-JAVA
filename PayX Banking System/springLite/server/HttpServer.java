@@ -3,6 +3,11 @@ import db.DBConnection;
 import java.net.*;
 import java.io.*;
 
+import core.SingletonRegistry;
+import db.DBConnection;
+import java.net.*;
+import java.io.*;
+
 public class HttpServer {
 
     public static void start(int port) throws Exception {
@@ -22,13 +27,12 @@ public class HttpServer {
         String requestLine = in.readLine();
         System.out.println("Request: " + requestLine);
 
-        // ✅ GOOD: All calls share same DBConnection instance
-        db.DBConnection db1 = db.DBConnection.getInstance();
-        db.DBConnection db2 = db.DBConnection.getInstance();
+        // ✅ Spring-style: get singleton from Registry (like ApplicationContext.getBean)
+        DBConnection db = SingletonRegistry.get(DBConnection.class);
 
-        String responseBody = "PayX Singleton  test: \n"
-                + "db1: " + db1 + "\n"
-                + "db2: " + db2 + "\n";
+        String responseBody = "PayX using SingletonRegistry:\n"
+                + "DB instance: " + db + "\n"
+                + db.getAccountBalance("ACC123");
 
         out.write("HTTP/1.1 200 OK\r\n");
         out.write("Content-Type: text/plain\r\n\r\n");
