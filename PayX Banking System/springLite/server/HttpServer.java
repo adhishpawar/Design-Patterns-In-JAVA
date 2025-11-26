@@ -13,6 +13,7 @@ import java.io.*;
 
 public class HttpServer {
 
+
     public static void start(int port) throws Exception {
         ServerSocket server = new ServerSocket(port);
         System.out.println("🚀 Server started at port: " + port);
