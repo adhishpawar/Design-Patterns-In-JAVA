@@ -1,18 +1,30 @@
 package payments;
 
 import core.BeanFactory;
+import events.PaymentEvent;
+import events.PaymentEventPublisher;
 
+
+//Respo --> process payment and publish event.
 public class PaymentService {
 
-    public void pay(double amount, String method) {
+    private final PaymentEventPublisher publisher;
 
-        PaymentStrategy strategy = switch (method) {
-            case "UPI" -> BeanFactory.getBean(UpiPayment.class);
-            case "CARD" -> BeanFactory.getBean(CardPayment.class);
-            case "WALLET" -> BeanFactory.getBean(WalletPayment.class);
-            default -> throw new RuntimeException("Unknown payment method: " + method);
-        };
-
-        strategy.pay(amount);
+    public PaymentService(PaymentEventPublisher publisher) {
+        this.publisher = publisher;
     }
+
+    public void pay(String accountId,double amount, String method) {
+
+        System.out.println("processing payment of " + amount + "via" + method + "For Amount " + accountId);
+
+        //assume success for now
+        String status = "SUCCESS";
+
+        PaymentEvent event = new PaymentEvent(accountId, amount, method, status);
+
+        publisher.publishEvent(event);
+
+    }
+
 }
