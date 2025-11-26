@@ -45,7 +45,7 @@ public class HttpServer {
             }
 
             PaymentService service = BeanFactory.getBean(PaymentService.class);
-            service.pay(500.00, method);
+//            service.pay(500.00, method);
 
             out.write("HTTP/1.1 200 OK\r\n");
             out.write("Content-Type: text/plain\r\n\r\n");
