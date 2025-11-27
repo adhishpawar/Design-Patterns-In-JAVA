@@ -3,28 +3,26 @@ package payments;
 import core.BeanFactory;
 import events.PaymentEvent;
 import events.PaymentEventPublisher;
-
+import validation.ValidationHandler;
+import validation.ValidationChainFactory;
 
 //Respo --> process payment and publish event.
 public class PaymentService {
 
-    private final PaymentEventPublisher publisher;
+    private final ValidationHandler validator = ValidationChainFactory.createValidationChain();
 
-    public PaymentService(PaymentEventPublisher publisher) {
-        this.publisher = publisher;
+    public PaymentService() {
     }
 
     public void pay(String accountId,double amount, String method) {
 
-        System.out.println("processing payment of " + amount + "via" + method + "For Amount " + accountId);
+        if(!validator.handle(amount, accountId, method))
+        {
+            System.out.println("Payment Rejected");
+            return;
+        }
 
-        //assume success for now
-        String status = "SUCCESS";
-
-        PaymentEvent event = new PaymentEvent(accountId, amount, method, status);
-
-        publisher.publishEvent(event);
-
+        System.out.println("Payment is valid, proceeding.....");
     }
 
 }
