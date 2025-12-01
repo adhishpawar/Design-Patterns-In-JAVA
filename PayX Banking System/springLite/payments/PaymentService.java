@@ -1,17 +1,16 @@
 package payments;
 
-import core.BeanFactory;
-import events.PaymentEvent;
-import events.PaymentEventPublisher;
+import template.PaymentTemplate;
+import template.PaymentTemplateFactory;
 import validation.ValidationHandler;
-import validation.ValidationChainFactory;
 
 //Respo --> process payment and publish event.
 public class PaymentService {
 
-    private final ValidationHandler validator = ValidationChainFactory.createValidationChain();
+    private final ValidationHandler validator;
 
-    public PaymentService() {
+    public PaymentService(ValidationHandler validator) {
+        this.validator = validator;
     }
 
     public void pay(String accountId,double amount, String method) {
@@ -22,7 +21,8 @@ public class PaymentService {
             return;
         }
 
-        System.out.println("Payment is valid, proceeding.....");
+        PaymentTemplate flow = PaymentTemplateFactory.getFlow(method);
+        flow.processPayment(amount, accountId, method);
     }
 
 }
