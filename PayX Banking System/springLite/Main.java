@@ -1,4 +1,7 @@
 
+import adapter.ExternalBankAdapter;
+import adapter.PayXBankAPI;
+import adapter.PayXFundTransferService;
 import core.BeanFactory;
 import core.SingletonRegistry;
 import db.DBConnection;
@@ -12,14 +15,9 @@ public class Main {
         // start HTTP server
 //        HttpServer.start(8080);
 
-        PaymentService service = new PaymentService(
-                validation.ValidationChainFactory.createValidationChain()
-        );
+        PayXBankAPI bankAPI = new ExternalBankAdapter();
+        PayXFundTransferService transferService = new PayXFundTransferService(bankAPI);
 
-        System.out.println("\n--- UPI PAYMENT ---");
-        service.pay("ACC123", 500, "UPI");
-
-        System.out.println("\n--- CARD PAYMENT ---");
-        service.pay("ACC888", 1200, "CARD");
+        transferService.transfer(500.0, "ACC123", "ACC999");
     }
 }
