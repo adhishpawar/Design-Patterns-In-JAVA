@@ -1,23 +1,34 @@
-
-import adapter.ExternalBankAdapter;
-import adapter.PayXBankAPI;
-import adapter.PayXFundTransferService;
-import core.BeanFactory;
-import core.SingletonRegistry;
-import db.DBConnection;
-import events.*;
 import facade.PayXFacade;
-import facade.dto.FundTransferRequest;
 import facade.dto.PaymentRequest;
-import payments.PaymentService;
-import server.HttpServer;
+import facade.dto.FundTransferRequest;
 
 public class Main {
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
+
         PayXFacade facade = new PayXFacade();
 
-        facade.processPayment(
-                new PaymentRequest("ACC123", 999.0, "UPI")
-        );
+        // ------- Payment using Builder -------
+        PaymentRequest payment = new PaymentRequest.Builder()
+                .accountId("ACC123")
+                .amount(750.00)
+                .method("UPI")
+                .currency("INR")
+                .ipAddress("192.168.0.55")
+                .deviceId("PIXEL-9")
+                .build();
+
+        facade.processPayment(payment);
+
+        // ------- Fund Transfer using Builder -------
+        FundTransferRequest transfer = new FundTransferRequest.Builder()
+                .fromAccount("ACC111")
+                .toAccount("ACC999")
+                .amount(1200.00)
+                .remarks("Rent Payment")
+                .channel("MOBILE_APP")
+                .deviceId("IPHONE-15")
+                .build();
+
+        facade.transfer(transfer);
     }
 }
