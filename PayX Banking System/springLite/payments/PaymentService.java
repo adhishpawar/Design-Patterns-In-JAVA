@@ -7,22 +7,20 @@ import validation.ValidationHandler;
 //Respo --> process payment and publish event.
 public class PaymentService {
 
-    private final ValidationHandler validator;
+    private ValidationHandler validator;
 
-    public PaymentService(ValidationHandler validator) {
+    public void setValidator(ValidationHandler validator) {
         this.validator = validator;
     }
 
-    public void pay(String accountId,double amount, String method) {
+    public void pay(String accId, double amount, String method) {
 
-        if(!validator.handle(amount, accountId, method))
-        {
-            System.out.println("Payment Rejected");
+        if (!validator.handle(amount, accId, method)) {
+            System.out.println(" Payment blocked by validation pipeline.");
             return;
         }
 
         PaymentTemplate flow = PaymentTemplateFactory.getFlow(method);
-        flow.processPayment(amount, accountId, method);
+        flow.processPayment(amount, accId, method);
     }
-
 }
