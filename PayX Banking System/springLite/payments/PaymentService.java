@@ -5,7 +5,7 @@ import template.PaymentTemplateFactory;
 import validation.ValidationHandler;
 
 //Respo --> process payment and publish event.
-public class PaymentService {
+public class PaymentService implements IPaymentService {
 
     private ValidationHandler validator;
 
@@ -13,10 +13,11 @@ public class PaymentService {
         this.validator = validator;
     }
 
+    @Override
     public void pay(String accId, double amount, String method) {
 
         if (!validator.handle(amount, accId, method)) {
-            System.out.println(" Payment blocked by validation pipeline.");
+            System.out.println("Payment failed in validation chain");
             return;
         }
 

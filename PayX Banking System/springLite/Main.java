@@ -16,12 +16,8 @@ public class Main {
     public static void main(String[] args) throws Exception {
         PayXFacade facade = new PayXFacade();
 
-        // PAYMENT
-        PaymentRequest payment = new PaymentRequest("ACC123", 750.0, "UPI");
-        facade.processPayment(payment);
-
-        // FUND TRANSFER
-        FundTransferRequest transfer = new FundTransferRequest("ACC111", "ACC999", 1200.0);
-        facade.transfer(transfer);
+        facade.processPayment(
+                new PaymentRequest("ACC123", 999.0, "UPI")
+        );
     }
 }
