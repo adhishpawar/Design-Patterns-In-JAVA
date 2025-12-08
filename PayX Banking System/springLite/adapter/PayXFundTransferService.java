@@ -1,24 +1,19 @@
 package adapter;
 
-import jdk.jfr.TransitionFrom;
-
 public class PayXFundTransferService {
 
-    private final PayXBankAPI bankAPI;
+    private final PayXBankAPI api;
 
-    public PayXFundTransferService(PayXBankAPI bankAPI)
-    {
-        this.bankAPI = bankAPI;
+    public PayXFundTransferService(PayXBankAPI api) {
+        this.api = api;
     }
 
-    public void transfer(double amount, String fromAcc, String toAcc){
-        System.out.println("payX Initiating Fund transfer");
+    public void transfer(double amount, String fromAcc, String toAcc) {
+        boolean ok = api.transfer(amount, fromAcc, toAcc);
 
-        boolean ok = bankAPI.transfer(amount, fromAcc, toAcc);
-
-        if(ok)
-            System.out.println("PayX Transfer Success for  " + fromAcc + "to" + toAcc);
+        if (ok)
+            System.out.println(" PayX Transfer Completed Successfully.");
         else
-            System.out.println("Transfer Failed");
+            System.out.println(" PayX Transfer Failed.");
     }
 }

@@ -6,18 +6,22 @@ import core.BeanFactory;
 import core.SingletonRegistry;
 import db.DBConnection;
 import events.*;
+import facade.PayXFacade;
+import facade.dto.FundTransferRequest;
+import facade.dto.PaymentRequest;
 import payments.PaymentService;
 import server.HttpServer;
 
 public class Main {
     public static void main(String[] args) throws Exception {
+        PayXFacade facade = new PayXFacade();
 
-        // start HTTP server
-//        HttpServer.start(8080);
+        // PAYMENT
+        PaymentRequest payment = new PaymentRequest("ACC123", 750.0, "UPI");
+        facade.processPayment(payment);
 
-        PayXBankAPI bankAPI = new ExternalBankAdapter();
-        PayXFundTransferService transferService = new PayXFundTransferService(bankAPI);
-
-        transferService.transfer(500.0, "ACC123", "ACC999");
+        // FUND TRANSFER
+        FundTransferRequest transfer = new FundTransferRequest("ACC111", "ACC999", 1200.0);
+        facade.transfer(transfer);
     }
 }
