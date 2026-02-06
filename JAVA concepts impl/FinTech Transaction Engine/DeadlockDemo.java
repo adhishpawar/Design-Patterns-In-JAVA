@@ -35,6 +35,22 @@ public class DeadlockDemo {
         }
     }
 
+    static void safeTransfer(Account from, Account to, long amount) {
+        Account first = from.id < to.id ? from : to;
+        Account second = from.id < to.id ? to : from;
+
+        first.lock.lock();
+        second.lock.lock();
+        try {
+            from.balance.addAndGet(-amount);
+            to.balance.addAndGet(amount);
+        } finally {
+            second.lock.unlock();
+            first.lock.unlock();
+        }
+    }
+
+
     static void sleep(long ms) {
         try {
             Thread.sleep(ms);
@@ -43,8 +59,8 @@ public class DeadlockDemo {
 
     public static void main(String[] args) {
 
-        Thread t1 = new Thread(() -> transfer(A, B, 100), "T1");
-        Thread t2 = new Thread(() -> transfer(B, A, 100), "T2");
+        Thread t1 = new Thread(() -> safeTransfer(A, B, 100), "T1");
+        Thread t2 = new Thread(() -> safeTransfer(B, A, 100), "T2");
 
         t1.start();
         t2.start();
