@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/20 Design Patterns.iml" filepath="$PROJECT_DIR$/20 Design Patterns.iml" />
-      <module fileurl="file://$PROJECT_DIR$/PayX Banking System/PayX Banking System.iml" filepath="$PROJECT_DIR$/PayX Banking System/PayX Banking System.iml" />
+      <module fileurl="file://$PROJECT_DIR$/04 Systems/PayX Banking System/PayX Banking System.iml" filepath="$PROJECT_DIR$/04 Systems/PayX Banking System/PayX Banking System.iml" />
     </modules>
   </component>
 </project>
