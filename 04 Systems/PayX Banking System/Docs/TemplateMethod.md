@@ -88,7 +88,7 @@ Payments lack consistency & compliance.
 
 Different developers write:
 
-- different validation logic
+- different payxCore.validation logic
 - different debit logic
 - different ledger logic
 - different notification logic
@@ -98,7 +98,7 @@ No guarantee of:
 ✔ standard logging  
 ✔ AML compliance  
 ✔ auditing  
-✔ KYC validation  
+✔ KYC payxCore.validation  
 ✔ fraud handling
 
 ---
@@ -138,7 +138,7 @@ Regulatory banking systems require:
 - mandatory logging
 - easy auditability
 - predictable flow
-- unmodifiable core steps
+- unmodifiable springLite.ioc.core steps
 
 Template Method enforces this.
 
@@ -224,7 +224,7 @@ Some steps are final, some customizable.
 
 ### Developers extend behavior
 
-WITHOUT modifying core framework code.
+WITHOUT modifying springLite.ioc.core framework code.
 
 This gives Spring:
 

@@ -28,7 +28,7 @@ This documentation explains **how each pattern is used**, **why it is required**
 
 ### ✔ Real benefit:
 
-All core PayX components share one instance → avoids conflict, improves performance.
+All springLite.ioc.core PayX components share one instance → avoids conflict, improves performance.
 
 ---
 
@@ -77,7 +77,7 @@ Each requires different:
 
 - debit logic
 
-- validation
+- payxCore.validation
 
 - processing
 
@@ -96,7 +96,7 @@ PayX can plug new payment method instantly (ex: adding EMI or Crypto).
 
 # 👁️‍🗨️ **4. Observer Pattern — Notification System**
 
-**Purpose:** Publish events to multiple listeners.
+**Purpose:** Publish springLite.events to multiple listeners.
 
 ### ✔ Why needed in PayX?
 
@@ -141,18 +141,18 @@ Multiple validations:
 
 - Check balance
 
-- Check UPI PIN validation
+- Check UPI PIN payxCore.validation
 
 - Check card limit
 
 
 ### ✔ What we implemented?
 
-`ValidationHandler` + multiple validation nodes.
+`ValidationHandler` + multiple payxCore.validation nodes.
 
 ### ✔ Real benefit:
 
-You can add/remove/reorder validation logic without touching core code.
+You can add/remove/reorder payxCore.validation logic without touching springLite.ioc.core code.
 
 ---
 
