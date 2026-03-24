@@ -52,4 +52,24 @@ public class CreditScoreRequest {
            return new CreditScoreRequest(this);
         }
     }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public List<Transaction> getTransactions() {
+        return transactions;
+    }
+
+    public double getMonthlyIncome() {
+        return monthlyIncome;
+    }
+
+    public double getMonthlyExpense() {
+        return monthlyExpense;
+    }
+
+    public String getModelVersion() {
+        return modelVersion;
+    }
 }
