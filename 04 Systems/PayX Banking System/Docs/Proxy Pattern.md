@@ -28,7 +28,7 @@ When calling a method in a critical system like PayX, often we need:
 
 WITHOUT modifying the real service code.
 
-If you write logic directly inside core services:
+If you write logic directly inside springLite.ioc.core services:
 
 - Code becomes dirty
 - Violates SRP
@@ -73,13 +73,13 @@ Spring is **built on Proxy pattern**.
 
 ### 1. @Transactional
 
-Creates a proxy around your service:
+Creates a springLite.aop.proxy around your service:
 
 `Before: beginTx Call real method After: commit/rollback`
 
 ### 2. @Async
 
-Wraps method inside proxy → executes in separate thread.
+Wraps method inside springLite.aop.proxy → executes in separate thread.
 
 ### 3. @Cacheable
 
@@ -92,6 +92,6 @@ All requests pass through **security proxies**.
 
 ### 5. Hibernate Lazy Loading
 
-Returns proxy instead of real entity → loads when accessed.
+Returns springLite.aop.proxy instead of real entity → loads when accessed.
 
 ---

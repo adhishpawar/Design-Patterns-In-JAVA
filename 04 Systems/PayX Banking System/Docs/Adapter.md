@@ -127,7 +127,7 @@ We must adapt the external API to PayX API.
 
 ---
 
-# ❌ BAD IMPLEMENTATION (No adapter)
+# ❌ BAD IMPLEMENTATION (No payxCore.adapter)
 
 `ExternalBankApi api = new ExternalBankApi(); api.sendFunds(fromAcc, toAcc, amount * 100);`
 
@@ -182,7 +182,7 @@ System.out.println("Adapter converting amount: " + amount + " to paise: " + pais
 
 ---
 
-### Step 4 — PayX uses the adapter
+### Step 4 — PayX uses the payxCore.adapter
 
 ```
 public class PayXFundTransferService {

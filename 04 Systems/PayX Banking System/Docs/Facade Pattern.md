@@ -67,13 +67,13 @@ Facade provides ONE ENTRY POINT:
 payXFacade.processPayment(req);
 ```
 
-Inside the facade:
+Inside the payxCore.facade:
 
-- validation
+- payxCore.validation
 - strategy
 - CoR
-- template method
-- adapter
+- springLite.template method
+- payxCore.adapter
 - observer
 - logging
 - DB
@@ -130,7 +130,7 @@ Spring Boot = Facade for Spring Framework.
 
 Developers manually configure:
 
-- Tomcat server
+- Tomcat springLite.web.server
 - DispatcherServlet
 - ViewResolvers
 - DataSource
